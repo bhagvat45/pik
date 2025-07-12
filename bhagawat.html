@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>पिक माहिती प्रणाली</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+            color: #333;
+        }
+        header {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #2c3e50;
+        }
+        .selector-section {
+            margin: 20px auto;
+            text-align: center;
+        }
+        select {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #34495e;
+            background: white;
+            cursor: pointer;
+        }
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .info-box:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+        }
+        .info-box img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            background: #f7f7f7;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+        }
+        .varieties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .variety-card {
+            flex: 1 1 45%;
+            background: #f7f7f7;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .variety-card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #34495e;
+            color: white;
+            margin-top: 20px;
+        }
+        a {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body><header>
+    <h1>🌾 पिक माहिती प्रणाली 🌾</h1>
+</header><main>
+    <section class="selector-section">
+        <select id="cropSelect" onchange="showCropInfo()">
+            <option value="">पिक निवडा</option>
+            <option value="सोयाबीन">सोयाबीन</option>
+            <option value="तूर">तूर</option>
+            <option value="कापूस">कापूस</option>
+            <option value="गहू">गहू</option>
+            <option value="भात">भात</option>
+        </select>
+    </section><section id="cropInfo" class="info-box"></section>
+
+</main><footer>
+    शेतकऱ्यांसाठी महत्त्वाची माहिती मिळवण्यासाठी आमचे पेज पहा. अभिप्रायासाठी Instagram: <a href="https://instagram.com/bhagvat__45" target="_blank">@bhagvat__45</a>
+</footer><script>
+const crops = {
+    "सोयाबीन": {
+        image: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Soybean.USDA.jpg",
+        sowing: "जून ते जुलै",
+        harvesting: "ऑक्टोबर ते नोव्हेंबर",
+        fertilizer: "युरिया: २५ किलो/एकर, डीएपी: ५० किलो/एकर",
+        fertilizerTime: "पेरणीच्या २५-३० दिवसानंतर",
+        spray: "इमामेक्टिन, थायोमेथोक्सम",
+        sprayTime: "पेरणीच्या ३०-४५ दिवसानंतर",
+        soil: "काळी माती, हलकी व लाल माती",
+        watering: "8-10 दिवसांच्या अंतराने",
+        extra: "तेल उत्पादनासाठी महत्त्वाचे पीक.",
+        varieties: [
+            { name: "JS 335", img: "https://krishijagran.com/images/news/news_24151.jpg" },
+            { name: "MAUS 71", img: "https://www.researchgate.net/publication/309404687/figure/fig1/AS:669526612119552@1536623657052/Soybean-varieties-grown-in-Maharashtra.png" }
+        ]
+    },
+    "तूर": {
+        image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Pigeon_pea_(Cajanus_cajan)_02.jpg",
+        sowing: "जून ते जुलै",
+        harvesting: "नोव्हेंबर ते डिसेंबर",
+        fertilizer: "युरिया: २० किलो/एकर, डीएपी: ४० किलो/एकर",
+        fertilizerTime: "पेरणीच्या २०-२५ दिवसानंतर",
+        spray: "स्पिनोसॅड, इमिडाक्लोप्रिड",
+        sprayTime: "फुलोऱ्याच्या टप्प्यावर",
+        soil: "काळी व मध्यम लाल माती",
+        watering: "१५ दिवसाच्या अंतराने",
+        extra: "डाळ उत्पादनासाठी वापरले जाते.",
+        varieties: [
+            { name: "BSMR 736", img: "https://www.icar-iipr.res.in/sites/default/files/styles/news_details/public/2021-11/Tur_BSMR-736.JPG" },
+            { name: "Asha", img: "https://www.icar-iipr.res.in/sites/default/files/2021-11/Tur_Asha.JPG" }
+        ]
+    },
+    "कापूस": {
+        image: "https://upload.wikimedia.org/wikipedia/commons/1/13/Cotton_bolls_on_cotton_plant.jpg",
+        sowing: "मे ते जून",
+        harvesting: "नोव्हेंबर ते जानेवारी",
+        fertilizer: "युरिया: ३० किलो/एकर, डीएपी: ६० किलो/एकर",
+        fertilizerTime: "पेरणीच्या ३० व ६० दिवसानंतर",
+        spray: "इमामेक्टिन, क्विनालफॉस",
+        sprayTime: "रोग किंवा कीटक दिसल्यावर",
+        soil: "काळी खोल माती",
+        watering: "१० दिवसांच्या अंतराने",
+        extra: "कापूस वस्त्र उद्योगासाठी महत्त्वाचे आहे.",
+        varieties: [
+            { name: "Bunny", img: "https://5.imimg.com/data5/ANDROID/Default/2020/12/IG/SI/XU/43175842/product-jpeg-500x500.jpg" },
+            { name: "RCH 659", img: "https://seed2plant.in/cdn/shop/products/Cotton-Bunny-Bt-seeds.jpg" }
+        ]
+    },
+    "गहू": {
+        image: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Wheat_close-up.jpeg",
+        sowing: "ऑक्टोबर ते नोव्हेंबर",
+        harvesting: "मार्च ते एप्रिल",
+        fertilizer: "युरिया: ५० किलो/एकर, डीएपी: ८० किलो/एकर",
+        fertilizerTime: "पेरणीच्या २५ दिवसानंतर",
+        spray: "मॅन्कोझेब, कार्बेन्डाझीम",
+        sprayTime: "पाने पिवळी पडल्यावर",
+        soil: "काळी व गडद लाल माती",
+        watering: "१०-१२ दिवसांच्या अंतराने",
+        extra: "मुख्य अन्नधान्य पीक.",
+        varieties: [
+            { name: "Lok 1", img: "https://krishijagran.com/images/news/news_3667.jpg" },
+            { name: "HD 2967", img: "https://www.icar.org.in/sites/default/files/HD%202967%20wheat%20variety.jpg" }
+        ]
+    },
+    "भात": {
+        image: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Rice_paddy.JPG",
+        sowing: "जून ते जुलै",
+        harvesting: "नोव्हेंबर ते डिसेंबर",
+        fertilizer: "युरिया: ४० किलो/एकर, डीएपी: ७० किलो/एकर",
+        fertilizerTime: "पेरणीच्या २० दिवसानंतर",
+        spray: "बुप्रोफेझिन, क्लोरोपायरीफॉस",
+        sprayTime: "कीटक दिसल्यावर",
+        soil: "तांबडी व चिकण माती",
+        watering: "दररोज किंवा २ दिवसांनी",
+        extra: "मुख्य अन्नधान्य पीक, भारतात जास्त लागवड.",
+        varieties: [
+            { name: "MTU 1010", img: "https://krishijagran.com/images/news/news_11625.jpg" },
+            { name: "Swarna", img: "https://5.imimg.com/data5/SELLER/Default/2023/6/315596422/HT/LN/WJ/2972233/swarna-rice-500x500.jpg" }
+        ]
+    }
+};
+
+function showCropInfo() {
+    const select = document.getElementById("cropSelect").value;
+    const infoDiv = document.getElementById("cropInfo");
+
+    if (crops[select]) {
+        const data = crops[select];
+        let varietyHTML = '<h3>उत्कृष्ट वाण:</h3><ul>';
+data.varieties.forEach(variety => {
+    varietyHTML += `<li>${variety.name}</li>`;
+});
+varietyHTML += '</ul>';
+
+        infoDiv.innerHTML = `
+            <img src="${data.image}" alt="${select}">
+            <h2>${select}</h2>
+            <div class="info-item"><span><strong>पेरणी कालावधी:</strong></span><span>${data.sowing}</span></div>
+            <div class="info-item"><span><strong>कापणी कालावधी:</strong></span><span>${data.harvesting}</span></div>
+            <div class="info-item"><span><strong>खत:</strong></span><span>${data.fertilizer}</span></div>
+            <div class="info-item"><span><strong>खत देण्याचा कालावधी:</strong></span><span>${data.fertilizerTime}</span></div>
+            <div class="info-item"><span><strong>फवारणी:</strong></span><span>${data.spray}</span></div>
+            <div class="info-item"><span><strong>फवारणी कालावधी:</strong></span><span>${data.sprayTime}</span></div>
+            <div class="info-item"><span><strong>माती प्रकार:</strong></span><span>${data.soil}</span></div>
+            <div class="info-item"><span><strong>पाण्याचा तक्ता:</strong></span><span>${data.watering}</span></div>
+            <div class="info-item"><span><strong>अधिक माहिती:</strong></span><span>${data.extra}</span></div>
+            ${varietyHTML}
+        `;
+    } else {
+        infoDiv.innerHTML = "";
+    }
+}
+</script></body>
+</html>
